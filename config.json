@@ -1,21 +1,16 @@
 {
   "readmeUrl": "https://raw.githubusercontent.com/cveinnt/cveinnt/master/README.md",
-  "title": "LiveTerm",
-  "name": "John Doe",
+  "title": "Karan Pandey",
+  "name": "Karan Pandey",
   "ascii": "liveterm",
   "social": {
-    "github": "github",
-    "linkedin": "linkedin"
+    "github": "KaranPandey05",
+    "linkedin": "karan-pandey-bb23a0296"
   },
-  "email": "contact@email.com",
-  "ps1_hostname": "liveterm",
+  "email": "karanpandey2005@gamil.com",
+  "ps1_hostname": "protfolio",
   "ps1_username": "visitor",
-  "repo": "https://github.com/Cveinnt/LiveTerm",
-  "resume_url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Resume.pdf",
-  "donate_urls": {
-    "paypal": "https://paypal.me/cveinnt",
-    "patreon": "https://patreon.com/cveinnt"
-  },
+  "resume_url": "https://docs.google.com/document/d/10FmealA7VK0j2TwN7jTlqEsXTeNyzCxDIs0-Mo7q2BY/edit?usp=sharing",
   "colors": {
     "light": {
       "background": "#FBF1C9",
@@ -27,13 +22,13 @@
       "red": "#CA2124"
     },
     "dark": {
-      "background": "#2E3440",
-      "foreground": "#E5E9F0",
-      "yellow": "#5E81AC",
-      "green": "#A3BE8C",
-      "gray": "#88C0D0",
-      "blue": "#EBCB8B",
-      "red": "#BF616A"
+      "background": "#282a36",
+      "foreground": "#f8f8f2",
+      "yellow": "#ffb86c",
+      "green": "#50fa7b",
+      "gray": "#bd93f9",
+      "blue": "#8be9fd",
+      "red": "#ff5555"
     }
   }
 }
