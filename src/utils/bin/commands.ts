@@ -2,6 +2,8 @@
 
 import * as bin from './index';
 import config from '../../../config.json';
+import { getProjects } from '../api';
+import React from 'react';
 
 // Help
 export const help = async (args: string[]): Promise<string> => {
@@ -24,12 +26,18 @@ Type 'sumfetch' to display summary.
 
 // About
 export const about = async (args: string[]): Promise<string> => {
-  return `Hi, I am ${config.name}. 
-Welcome to my website!
+  return `Hi, I am ${config.name}.
+
+As second year Electrical Engineering student at the University of British Columbia. I have a passion for creating innovative solutions through practical projects and technical skills. 
+My expertise spans across CAD tools like SolidWorks, AutoCAD, and a bit of KiCad, as well as programming languages including C++, Python, and Arduino. My GitHub showcases my hands-on projects 
+like an AI-Aimbot for Minecraft utilizing machine learning. I am deeply interested in low-level computer design, including microcontrollers, FPGAs, and ASICs. My goal is to contribute to 
+GPU and CPU design, and I am currently focused on developing a hardware accelerator using an FPGA development board to enhance ML model performance. I thrive on applying my knowledge to 
+real-world challenges, pushing the boundaries of what's possible in technology and engineering.
+
 More about me:
 'sumfetch' - short summary.
 'resume' - my latest resume.
-'readme' - my github readme.`;
+'github' - my github profile.`;
 };
 
 export const resume = async (args: string[]): Promise<string> => {
@@ -71,17 +79,63 @@ export const whoami = async (args: string[]): Promise<string> => {
 };
 
 export const ls = async (args: string[]): Promise<string> => {
-  return `a
-bunch
-of
-fake
-directories cooked soo mcuuh`;
+  return `projects\nresume\ngithub\nlinkedin\nabout\n`;
 };
 
+
 export const cd = async (args: string[]): Promise<string> => {
-  return `unfortunately, i cannot afford more directories.
-if you want to help, you can type 'donate'.`;
+  const dir = args.join(' ').toLowerCase();
+  let currentDirectory = 'root';
+
+  if (dir === '..') {
+    if (currentDirectory === 'root') {
+      return 'Already at the root directory';
+    } else {
+      currentDirectory = 'root';
+      return 'Moved to root directory';
+    }
+  } else if (currentDirectory !== 'root') {
+    return `Please type '..' to go back to the root before opening another directory.`;
+  }
+
+  if (dir === 'projects') {
+    const projects = await getProjects();
+    return projects
+      .map(
+        (repo) =>
+          `${repo.name} - <a class="text-light-blue dark:text-dark-blue underline" href="${repo.html_url}" target="_blank">${repo.html_url}</a>`,
+      )
+      .join('\n');
+  } else if (dir === 'resume') {
+    window.open(`${config.resume_url}`);
+    return 'Opening resume...';
+  } else if (dir === 'github') {
+    currentDirectory = 'github';
+    window.open(`https://github.com/${config.social.github}/`);
+    return 'Opening github...';
+  } else if (dir === 'linkedin') {
+    currentDirectory = 'linkedin';
+    window.open(`https://www.linkedin.com/in/${config.social.linkedin}/`);
+    return 'Opening linkedin...';
+  } else if (dir === 'about') {
+    currentDirectory = 'about';
+    return `Hi, I am ${config.name}.
+
+As second year Electrical Engineering student at the University of British Columbia. I have a passion for creating innovative solutions through practical projects and technical skills. 
+My expertise spans across CAD tools like SolidWorks, AutoCAD, and a bit of KiCad, as well as programming languages including C++, Python, and Arduino. My GitHub showcases my hands-on projects 
+like an AI-Aimbot for Minecraft utilizing machine learning. I am deeply interested in low-level computer design, including microcontrollers, FPGAs, and ASICs. My goal is to contribute to 
+GPU and CPU design, and I am currently focused on developing a hardware accelerator using an FPGA development board to enhance ML model performance. I thrive on applying my knowledge to 
+real-world challenges, pushing the boundaries of what's possible in technology and engineering.
+    
+More about me:
+'cd resume' - my latest resume.
+'cd github' - my github profile.
+'cd linkedin' - my linkedin profile.`
+  } else {
+    return `shell: directory not found: ${args[0]}. Try 'ls' to list all available directories.`;
+  }
 };
+
 
 export const date = async (args: string[]): Promise<string> => {
   return new Date().toString();
